@@ -10,3 +10,6 @@ Backend:
 Frontend:
 - cd client
 - npm start
+
+Browser:
+Navigate to http://localhost:1337
