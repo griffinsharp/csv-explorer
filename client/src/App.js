@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Explorer from './components/Explorer';
+import Home from './components/Home';
 import Nav from './components/Nav';
 
 import './App.css';
@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <Nav />
-      <Explorer />
+      <Home />
     </div>
   );
 }
