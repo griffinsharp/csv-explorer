@@ -30,17 +30,16 @@ class CsvFilterService
       return false
     end
 
-    # Downcase the address name. The vast majority of users will likely not make their searches case-sensitive.
+    # Downcase the address name (val and params). The vast majority of users will likely not make their searches case-sensitive.
+    dc_street_name = street_name.downcase
     street_filter = @params[:street_name].compact.transform_values(&:downcase).all? do |k, v|
-      return true if v.nil?
-
       if k == :contains
-        street_name.include?(v)
+        dc_street_name.include?(v)
       elsif k == :exact
-        street_name == v
+        dc_street_name == v
       elsif k == :starts_with
         substr_len = v.length
-        street_name[0...substr_len] == v
+        dc_street_name[0...substr_len] == v
       else
         handle_invalid_filter_param(k, v)
         return true
@@ -57,7 +56,5 @@ class CsvFilterService
     end
 
     def remove_dash
-
     end
-
 end
