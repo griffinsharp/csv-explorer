@@ -1,0 +1,46 @@
+/* MARGIN */
+.marginTop120 {
+  margin-top: 120px;
+}
+
+.marginBottom10 {
+  margin-bottom: 10px;
+}
+
+.marginBottom40 {
+  margin-bottom: 40px;
+}
+
+/* PADDING */
+.paddingRight10 {
+  padding-right: 10px;
+}
+
+.paddingTop10 {
+  padding-top: 10px;
+}
+
+/* FLEXBOX */
+.flex {
+  display: flex;
+}
+
+.flexJustifyCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.flexJustifyRight {
+  display: flex;
+  justify-content: right;
+}
+
+.flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
