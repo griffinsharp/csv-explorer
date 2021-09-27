@@ -1,0 +1,27 @@
+.mont {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.merri {
+  font-family: 'Merriweather', serif;
+}
+
+.sizeLg {
+  font-size: 24px;
+}
+
+.sizeMd {
+  font-size: 16px;
+}
+
+.sizeSm {
+  font-size: 8px;
+}
+
+.sizeXl {
+  font-size: 36px;
+}
+
+.font100 {
+  font-weight: 100;
+}

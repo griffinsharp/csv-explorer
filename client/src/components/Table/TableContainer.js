@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import TableHeader from './TableHeader';
+import TableRow from './TableRow';
+
 class TableContainer extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +14,10 @@ class TableContainer extends Component {
 
   render() {
     return(
-      <div>hi</div>
+      <table>
+        <TableHeader headers={this.props.headers} />
+        { this.props.rows.map((row, index) => <TableRow key={index} row={row} />) }
+      </table>
     );
   }
 }
