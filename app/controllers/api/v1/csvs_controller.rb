@@ -38,8 +38,11 @@ class Api::V1::CsvsController < ApplicationController
   LAT = 'LATITUDE'.freeze
   LOC = 'LOCATION'.freeze
   LONG = 'LONGITUDE'.freeze
+  NEXT_OH_START = 'NEXT OPEN HOUSE START TIME'.freeze
+  NEXT_OH_END = 'NEXT OPEN HOUSE END TIME'.freeze
   PRICE_SQ_FT = '$/SQUARE FEET'.freeze
   PROP_TYPE = 'PROPERTY TYPE'.freeze
+  STATE = 'STATE OR PROVINCE'.freeze
   SQ_FT = 'SQUARE FEET'.freeze
   URL = 'URL (SEE http://www.redfin.com/buy-a-home/comparative-market-analysis FOR INFO ON PRICING)'.freeze
   ZIP = 'ZIP OR POSTAL CODE'.freeze
@@ -51,9 +54,12 @@ class Api::V1::CsvsController < ApplicationController
     LAT => 'LAT',
     LOC => 'LOC',
     LONG => 'LONG',
+    NEXT_OH_START => 'OH START',
+    NEXT_OH_END => 'OH END',
     PRICE_SQ_FT => '$/SQFT',
     PROP_TYPE => 'TYPE',
     SQ_FT => 'SQFT',
+    STATE => 'STATE',
     URL => 'URL',
     ZIP => 'ZIP'
   }.freeze

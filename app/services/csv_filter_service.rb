@@ -9,16 +9,16 @@ class CsvFilterService
     number = split_vals[0].to_i
     street_name = split_vals[1]
 
-    # Use #compact to get rid of any nil values.
+    # Use #compact to get rid of any potential nil values that get through.
     num_filter = @params[:number].compact.all? do |k, v|
       if k == :contains
-        number.to_s.include?(v.to_s)
+        number.to_s.include?(v)
       elsif k == :exact
-        number == v
+        number == v.to_i
       elsif k == :greater_than
-        number > v
+        number > v.to_i
       elsif k == :less_than
-        number < v
+        number < v.to_i
       else
         handle_invalid_filter_param(k, v)
         return true
@@ -30,7 +30,7 @@ class CsvFilterService
       return false
     end
 
-    # Downcase the address name (val and params). The vast majority of users will likely not make their searches case-sensitive.
+    # Downcase the address name (val and params). The majority of users will likely not make their searches case-sensitive.
     dc_street_name = street_name.downcase
     street_filter = @params[:street_name].compact.transform_values(&:downcase).all? do |k, v|
       if k == :contains
@@ -56,5 +56,6 @@ class CsvFilterService
     end
 
     def remove_dash
+      # Remove dash from address number.
     end
 end

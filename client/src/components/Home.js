@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
+import update from 'immutability-helper';
+
+import FilterContainer from './Filter/FilterContainer';
 import TableContainer from './Table/TableContainer';
 import Uploader from './Uploader/index';
-import update from 'immutability-helper';
+
+import { nestedObjectIsEmpty } from '../../src/utils/objectUtils';
 
 import colorStyles from '../styles/colors.module.css';
 import layoutStyles from '../styles/layout.module.css';
@@ -14,93 +18,101 @@ class Home extends Component {
 
     this.state = {
       csv: null,
-      address_street_name: '',
-      filters: [],
+      filters: {},
       headers: [],
-      isLoading: false
+      rows: [],
+      isLoading: false,
+      simplified: true
+    }
+
+    this.handleFilterUpdate = this.handleFilterUpdate.bind(this);
+  }
+
+  // METHODS
+  handleFilterUpdate(column, filterObj) {
+    if (nestedObjectIsEmpty(filterObj[column])) {
+      const newFiltersObj = update(this.state.filters, { $unset: [ column ] });
+      this._setFilterState(newFiltersObj);
+    } else {
+      const newFiltersObj = update(this.state.filters, {
+        [ column ]: { $set: filterObj[ column ] }
+      });
+      this._setFilterState(newFiltersObj);
     }
   }
 
-  fetchCSVData(csv, filters={}) {
-
-    filters =
-    {
-      address: {
-        number: {
-          contains: null,
-          exact: null,
-          greater_than: null,
-          less_than: null
-        },
-        street_name: {
-          contains: null,
-          exact: null,
-          starts_with: null
-        }
-      }
-    }
-    csv.append('filters', JSON.stringify(filters));
+  // HELPERS
+  _fetchCSVData(csv) {
+    let formCSV = new FormData();
+    formCSV.append('csv', csv);
+    formCSV.append('filters', JSON.stringify(this.state.filters));
 
     const params = {
-      body: csv,
+      body: formCSV,
       method: 'POST'
     };
 
     fetch('/api/v1/csvs', params)
       .then(res => res.json())
       .then(res => {
-        this.parseCSVFromServer(res);
+        this._parseCSVFromServer(res);
         this.setState({isLoading: false});
       })
       .catch(err => {
-        // Display error somewhere.
-        this.setState({isLoading: false})
+        // Display error somewhere...
+        this.setState({isLoading: false});
       })
   }
 
-  handleChange(event, field) {
-    this.setState({ [field]: event.target.value })
-  }
-
-  handleCSVUpload(event) {
+  _handleCSVUpload(event) {
     this.setState({isLoading: true});
 
     const file = event.target.files[0];
-    this.setState({ csv: file });
-
-    let formCSV = new FormData();
-    formCSV.append('csv', file);
-
-    this.fetchCSVData(formCSV);
+    this.setState({csv: file});
+    this._fetchCSVData(file);
   }
 
-  parseCSVFromServer({headers, rows}) {
+  _parseCSVFromServer({headers, rows}) {
     this.setState({headers, rows});
+  }
+
+  _setFilterState(filterState) {
+    this.setState({filters: filterState}, () => this._fetchCSVData(this.state.csv));
+  }
+
+  // VIEWS
+  _getCsvView() {
+    return(
+      <div className={layoutStyles.mainContainer}>
+        <div>
+          <h2>CSV NAME</h2>
+          <FilterContainer handleFilterUpdate={this.handleFilterUpdate} />
+        </div>
+        <TableContainer headers={this.state.headers} rows={this.state.rows} simplified={this.state.simplified} />
+      </div>
+    );
+  }
+
+  _getUploaderView() {
+    return(
+      <div className={`${layoutStyles.flexAlignCenter} ${layoutStyles.flexJustifyCenter} ${layoutStyles.flexCol} ${layoutStyles.marginTop120}`}>
+        <h1 className={`${layoutStyles.marginBottom15} ${colorStyles.white}`}>Hey there! 👋</h1>
+        <h2 className={`${colorStyles.gray} ${fontStyles.font100} ${layoutStyles.marginBottom40}`}>Start searching homes by uploading a CSV below.</h2>
+        <Uploader
+          isLoading={this.state.isLoading}
+          onChange={e => this._handleCSVUpload(e)}
+        />
+      </div>
+    );
   }
 
   render() {
     return (
-      <div>
-        {/* Greeting Message */}
-        <div className={`${layoutStyles.flexAlignCenter} ${layoutStyles.flexJustifyCenter} ${layoutStyles.flexCol} ${layoutStyles.marginTop120}`}>
-          <h1 className={`${layoutStyles.marginBottom10} ${colorStyles.white}`}>Hey there! 👋</h1>
-          <h2 className={`${colorStyles.whiteLight} ${fontStyles.font100} ${layoutStyles.marginBottom40}`}>Start searching homes by uploading a CSV below.</h2>
-          <Uploader
-            isLoading={this.state.isLoading}
-            onChange={e => this.handleCSVUpload(e)}
-            />
-        </div>
-
-        {/* Move this into TableContainer itself  */}
-        { this.state.headers.length > 0 && <TableContainer headers={this.state.headers} rows={this.state.rows} /> }
-
-        {/* <form onSubmit={this.fetchCSVData}>
-          <button disabled={this.state.isLoading} type='submit'>Upload CSV</button>
-        </form> */}
+      <div className={layoutStyles.marginTop120}>
+        {this.state.headers.length > 0 ? this._getCsvView() : this._getUploaderView() }
       </div>
     );
   }
 }
 
 export default Home;
-

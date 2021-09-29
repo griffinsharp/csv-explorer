@@ -2,22 +2,22 @@
   color: #CF6679;
 }
 
+.gray {
+  color: #707079;
+}
+
 .green {
   color: #03dac6;
 }
 
-.mainText {
-  color: #838383
+.headerBg {
+  color: #29282f;
 }
 
-.secText {
-  color: #5e5e5e;
+.purple {
+  color: #5a4bb3;
 }
 
 .white {
-  color: #ffffff;
-}
-
-.whiteLight {
-  color: #c1c1c1;
+  color: #d3d2d5;
 }
