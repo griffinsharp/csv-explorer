@@ -1,3 +1,15 @@
 .fileUploadBtn {
+  align-items: center;
+  border: 1px solid #03dac6;
+  color: #03dac6;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
 
+.fileUploadBtn:hover {
+  border: 1px solid #13867b;;
+  color: #13867b;
+  cursor: pointer;
+  transition: 0.3s;
 }

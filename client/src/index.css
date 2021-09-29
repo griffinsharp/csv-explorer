@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap');
 
 body {
-  background: #292a31;
+  background: #211f26;
   margin: 0;
   font-family: 'Montserrat', 'Merriweather', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -9,12 +9,47 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* Overwrite defaults. Set on page to page basis. */
+/* Headers */
 h1, h2 {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  max-width: 115px;
+  padding: 10px 6px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+th {
+  color: #707079;
+  background: #29282f;
+}
+
+thead {
+  background: #29282f;
+}
+
+tr {
+  color: #d3d2d5;
+  height: 50px;
+}
+
+/* Header Border Curves */
+th:first-child{
+  border-radius: 5px 0 0 5px;
+}
+
+th:last-child{
+  border-radius: 0 5px 5px 0;
 }

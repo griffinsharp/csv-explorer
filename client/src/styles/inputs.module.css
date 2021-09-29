@@ -1,0 +1,35 @@
+.grayBtn {
+  background-color: #707079;
+  border: 1px solid #707079;
+  border-radius: 4px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.purpleBtn {
+  background-color: #5a4bb3;;
+  border: 1px solid #5a4bb3;;
+  border-radius: 4px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.purpleBtn:hover, .grayBtn:hover {
+  cursor: pointer;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 50%;
+  padding: 10px;
+  width: 100%;
+}

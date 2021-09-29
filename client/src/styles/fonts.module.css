@@ -1,27 +1,35 @@
-.mont {
-  font-family: 'Montserrat', sans-serif;
+.bold {
+  font-weight: bold;
+}
+
+.font100 {
+  font-weight: 100;
 }
 
 .merri {
   font-family: 'Merriweather', serif;
 }
 
-.sizeLg {
-  font-size: 24px;
-}
-
-.sizeMd {
-  font-size: 16px;
+.mont {
+  font-family: 'Montserrat', sans-serif;
 }
 
 .sizeSm {
   font-size: 8px;
 }
 
+.sizeMd {
+  font-size: 16px;
+}
+
+.sizeLg {
+  font-size: 24px;
+}
+
 .sizeXl {
   font-size: 36px;
 }
 
-.font100 {
-  font-weight: 100;
+.sizeXxl {
+  font-size: 48px;
 }

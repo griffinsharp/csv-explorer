@@ -1,14 +1,42 @@
 /* MARGIN */
-.marginTop120 {
-  margin-top: 120px;
+.margin10 {
+  margin: 10px;
 }
 
 .marginBottom10 {
   margin-bottom: 10px;
 }
 
+.marginBottom15 {
+  margin-bottom: 15px;
+}
+
 .marginBottom40 {
   margin-bottom: 40px;
+}
+
+.marginLeft10 {
+  margin-left: 10px;
+}
+
+.marginRight10 {
+  margin-right: 10px;
+}
+
+.marginRight20 {
+  margin-right: 20px;
+}
+
+.marginTop20 {
+  margin-top: 20px;
+}
+
+.marginTop30 {
+  margin-top: 30px;
+}
+
+.marginTop120 {
+  margin-top: 120px;
 }
 
 /* PADDING */
@@ -25,6 +53,11 @@
   display: flex;
 }
 
+.flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+
 .flexJustifyCenter {
   display: flex;
   justify-content: center;
@@ -35,12 +68,52 @@
   justify-content: right;
 }
 
-.flexAlignCenter {
+.flexJustifySpaceBetween {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 }
 
 .flexCol {
   display: flex;
   flex-direction: column;
+}
+
+/* CONTAINER */
+.mainContainer {
+  width: 95%;
+  margin: auto;
+}
+
+/* FADE */
+.fadeIn {
+  animation: fadeIn 1s;
+  -webkit-animation: fadeIn 1s;
+  -moz-animation: fadeIn 1s;
+  -o-animation: fadeIn 1s;
+  -ms-animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
