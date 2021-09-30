@@ -54,8 +54,4 @@ class CsvFilterService
     def handle_invalid_filter_param(k, val)
       puts "ERROR: Invalid address number filter param specified (#{k}) with value of (#{v})."
     end
-
-    def remove_dash
-      # Remove dash from address number.
-    end
 end

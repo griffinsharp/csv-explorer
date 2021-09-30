@@ -26,19 +26,29 @@ class Home extends Component {
     }
 
     this.handleFilterUpdate = this.handleFilterUpdate.bind(this);
+    this.handleToggleSimplified = this.handleToggleSimplified.bind(this);
+    this.removeFilterFromState = this.removeFilterFromState.bind(this);
   }
 
   // METHODS
   handleFilterUpdate(column, filterObj) {
     if (nestedObjectIsEmpty(filterObj[column])) {
-      const newFiltersObj = update(this.state.filters, { $unset: [ column ] });
-      this._setFilterState(newFiltersObj);
+      this.removeFilterFromState(column);
     } else {
       const newFiltersObj = update(this.state.filters, {
         [ column ]: { $set: filterObj[ column ] }
       });
       this._setFilterState(newFiltersObj);
     }
+  }
+
+  handleToggleSimplified() {
+    this.setState({simplified: !this.state.simplified});
+  }
+
+  removeFilterFromState(column) {
+    const newFiltersObj = update(this.state.filters, { $unset: [ column ] });
+    this._setFilterState(newFiltersObj);
   }
 
   // HELPERS
@@ -85,10 +95,20 @@ class Home extends Component {
     return(
       <div className={layoutStyles.mainContainer}>
         <div>
-          <h2>CSV NAME</h2>
-          <FilterContainer handleFilterUpdate={this.handleFilterUpdate} />
+          { this.state.csv && <h2 className={colorStyles.white}>file: <span className={colorStyles.gray}>{this.state.csv.name}</span></h2> }
+          <FilterContainer
+            handleToggleSimplified={this.handleToggleSimplified}
+            filters={this.state.filters}
+            handleFilterUpdate={this.handleFilterUpdate}
+            removeFilterFromState={this.removeFilterFromState}
+            simplified={this.state.simplified}
+            />
         </div>
-        <TableContainer headers={this.state.headers} rows={this.state.rows} simplified={this.state.simplified} />
+        <TableContainer
+          headers={this.state.headers}
+          rows={this.state.rows}
+          simplified={this.state.simplified}
+          />
       </div>
     );
   }

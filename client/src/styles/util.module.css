@@ -5,3 +5,11 @@
 .hover:hover {
   cursor: pointer;
 }
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+.scrollX {
+  overflow-x: scroll;
+}
