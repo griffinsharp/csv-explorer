@@ -19,12 +19,20 @@
   margin-left: 10px;
 }
 
+.marginLeft20 {
+  margin-left: 20px;
+}
+
 .marginRight10 {
   margin-right: 10px;
 }
 
 .marginRight20 {
   margin-right: 20px;
+}
+
+.marginRight30 {
+  margin-right: 30px;
 }
 
 .marginTop20 {
@@ -40,6 +48,14 @@
 }
 
 /* PADDING */
+.paddingLeft20 {
+  padding-left: 20px;
+}
+
+.paddingRight20 {
+  padding-right: 20px;
+}
+
 .paddingRight10 {
   padding-right: 10px;
 }

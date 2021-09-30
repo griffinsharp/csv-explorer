@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 
 import update from 'immutability-helper';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlineCaretRight } from 'react-icons/ai';
+
+import { snakeCaseToCapitalized } from '../../utils/formatterUtils';
+import { objectIsValid } from '../../utils/objectUtils';
+import { FILTER_OPTS, DEFAULT_STATE_MAP } from '../../utils/filterUtils';
+
+import FilterOption from './FilterOption'
 
 import colorStyles from '../../styles/colors.module.css';
 import fontStyles from '../../styles/fonts.module.css';
 import inputStyles from '../../styles/inputs.module.css';
 import layoutStyles from '../../styles/layout.module.css';
+import utilStyles from '../../styles/util.module.css';
 import styles from './filter.module.css';
-
-import { snakeCaseToCapitalized } from '../../utils/formatterUtils';
-import { FILTER_OPTS, DEFAULT_STATE_MAP } from '../../utils/filterUtils';
 
 // TODO: Break this into smaller components.
 class FilterContainer extends Component {
@@ -78,7 +82,12 @@ class FilterContainer extends Component {
   }
 
   // VIEWS
+  _getFiltersCollectionView(filters) {
+    return Object.keys(filters).map((filter, index) => <FilterOption key={index} filterName={filter} subColsObj={filters[filter]} removeFilterFromState={this.props.removeFilterFromState} />);
+  }
+
   _getFilterParamView(param, subCol) {
+    // TODO: DRY this up.
     switch (param) {
       case 'contains':
         return (
@@ -136,14 +145,14 @@ class FilterContainer extends Component {
 
         <div className={`${layoutStyles.flex} ${layoutStyles.marginTop30}`} >
           <div
-            class={`${inputStyles.purpleBtn} ${layoutStyles.marginRight20}`}
+            className={`${inputStyles.purpleBtn} ${layoutStyles.marginRight20}`}
             onClick={(event) => this.props.handleFilterUpdate(this.state.column, this.state.columnData)}
             style={{ width: '70%' }}
             >
             Submit
           </div>
           <div
-            class={inputStyles.grayBtn}
+            className={inputStyles.grayBtn}
             onClick={(event) => this._handleModalClose()}
             style={{ width: '30%' }}
             >
@@ -169,11 +178,15 @@ class FilterContainer extends Component {
     return(
       <div className={`${layoutStyles.flexJustifySpaceBetween} ${layoutStyles.margin10}`}>
         <div>
-          {/* If there's, filters render them here. */}
+          { objectIsValid(this.props.filters) && this._getFiltersCollectionView(this.props.filters) }
         </div>
         <div ref={node => { this.node = node; }} >
-          {this.state.showModal && this._getModalView() }
+          { this.state.showModal && this._getModalView() }
           <AiFillPlusCircle onClick={() => this.handleModalClick()} className={`${colorStyles.green} ${fontStyles.sizeXxl} ${styles.addFilterBtn}`} />
+          <AiOutlineCaretRight
+            className={`${colorStyles.purple} ${fontStyles.sizeXxl} ${styles.simpleTableToggleBtn} ${this.props.simplified ? '' : utilStyles.rotate180 }`}
+            onClick={() => this.props.handleToggleSimplified()}
+            />
         </div>
       </div>
     );

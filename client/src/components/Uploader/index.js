@@ -1,17 +1,17 @@
 import React from 'react';
 
+import { AiOutlineUpload } from "react-icons/ai";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 import fontStyles from '../../styles/fonts.module.css';
 import layoutStyles from '../../styles/layout.module.css';
 import styles from './uploader.module.css';
 import utilStyles from '../../styles/util.module.css';
 
-import { AiOutlineUpload } from "react-icons/ai";
-import ScaleLoader from "react-spinners/ScaleLoader";
-
 const LoaderView = () => <ScaleLoader color={'#03dac6'} />;
 
 const UploadBtnView = () => (
-  <label for="file-upload" className={`${styles.fileUploadBtn} ${fontStyles.sizeLg} ${utilStyles.hover}`}>
+  <label htmlFor="file-upload" className={`${styles.fileUploadBtn} ${fontStyles.sizeLg} ${utilStyles.hover}`}>
     Upload CSV
     <AiOutlineUpload className={layoutStyles.marginLeft10} />
   </label>

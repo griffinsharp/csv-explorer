@@ -64,7 +64,7 @@ class Api::V1::CsvsController < ApplicationController
     ZIP => 'ZIP'
   }.freeze
 
-  # Maps column name => component => filter type
+  # Maps column name => sub filters => filter type
   FILTERS_MAP = {
     ADDRESS => {
       number: ['contains', 'exact', 'greater_than', 'less_than'],
@@ -77,10 +77,6 @@ class Api::V1::CsvsController < ApplicationController
       amount: ['exact', 'greater_than', 'less_than']
     }
   }
-
-  def index
-    render json: { goats: ['kendrick', 'MF DOOM'] }
-  end
 
   def create
     table_arr = CSV.parse(csv_params.tempfile, headers: true).to_a
@@ -101,10 +97,6 @@ class Api::V1::CsvsController < ApplicationController
 
     def filter_params
       JSON.parse(permitted_params['filters'], { symbolize_names: true })
-    end
-
-    def permitted_params
-      params.permit('csv', 'filters')
     end
 
     def filter_rows(rows)
@@ -129,13 +121,17 @@ class Api::V1::CsvsController < ApplicationController
       end
     end
 
+    def find_filter_column(filter)
+      COLS.find_index(filter.to_s.upcase)
+    end
+
     def format_headers(headers)
-      # Some of the headers are unnecessarily long for the UI.
+      # Some of the default headers are unnecessarily long for the UI.
       headers.map { |h| h.in?(HEADERS_MAP.keys) ? HEADERS_MAP[h] : h }
     end
 
-    def find_filter_column(filter)
-      COLS.find_index(filter.to_s.upcase)
+    def permitted_params
+      params.permit('csv', 'filters')
     end
 
     def valid_filter?(filter)

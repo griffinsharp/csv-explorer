@@ -4,18 +4,35 @@
   transition: 0.3s;
 }
 
-/* Modal (should add to its own component/file, but keep for now)*/
+.filterOption {
+  text-align: center;
+  vertical-align: middle;
+  color: #707079;
+  background: #29282f;
+  border: 1px solid #29282f;
+  border-radius: 45px;
+}
+
 .modal {
   border: 1px solid #393944;
   border-radius: 5px;
   position: absolute;
   z-index: 100;
   background-color: #393944;
-  right: 100px;
+  right: 155px;
   top: 260px;
   height: auto;
   min-height: 264px;
   width: 550px;
   padding: 20px;
   word-break: break-word;
+}
+
+.simpleTableToggleBtn {
+  transition: 0.3s;
+}
+
+.simpleTableToggleBtn:hover {
+  cursor: pointer;
+  color: #402cb1;
 }
